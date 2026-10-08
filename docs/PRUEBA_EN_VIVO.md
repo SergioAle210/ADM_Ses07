@@ -43,14 +43,31 @@ python -m unittest discover -s tests -p "test_*.py" -v
 Debe ejecutar casos de las cinco funciones y finalizar con `OK`.
 **`Ran 0 tests` no valida la práctica.**
 
-## 3. Requisitos de integración continua
+## 3. Integración continua y protección de main
 
-- Repositorio público y código, tests y workflow publicados en `qa`.
-- Workflow ejecutado en cada PR hacia `main`, con el comando anterior.
-- Job de pruebas identificado mediante una ejecución antes de seleccionarlo como check obligatorio.
-- Protección de `main`: PR obligatorio y check de pruebas obligatorio.
-- Restricciones aplicadas también al administrador, sin permitir bypass.
-- Force pushes y eliminación de `main` bloqueados.
+El archivo `.github/workflows/ci.yml` ejecuta las pruebas en pushes a `qa` y
+`main`, y en cada PR hacia `main`. El job se llama `unit-tests` y rechaza una
+suite sin pruebas. No requiere instalar dependencias adicionales.
+
+Para publicar el workflow y su documentación desde `qa`:
+
+```powershell
+git add .github/workflows/ci.yml README.md docs/PRUEBA_EN_VIVO.md
+git commit -m "ci: configura pruebas automaticas con GitHub Actions"
+git push origin qa
+```
+
+Con el repositorio público, configura la protección desde GitHub:
+
+1. En **Actions**, comprueba que `CI - Matematica basica` termina con `unit-tests` aprobado.
+2. En **Settings → Branches → Add classic branch protection rule**, usa el patrón `main`.
+3. Activa **Require a pull request before merging**. Las aprobaciones de revisores son opcionales para esta demostración.
+4. Activa **Require status checks to pass before merging** y selecciona `unit-tests` de GitHub Actions. Activa **Require branches to be up to date before merging**.
+5. Activa **Do not allow bypassing the above settings** y deja desactivados **Allow force pushes** y **Allow deletions**. Guarda la regla.
+
+El workflow ejecuta las pruebas; la regla de protección es la que bloquea el
+merge cuando fallan. No se necesita trasladar estos archivos a `dev` para el
+recorrido `qa` → PR hacia `main`.
 
 Referencia de configuración:
 [protección de ramas de GitHub](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches).

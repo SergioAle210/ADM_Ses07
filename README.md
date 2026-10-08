@@ -11,6 +11,10 @@ basic_math/
     core.py              # Implementación y validaciones.
 docs/
     PRUEBA_EN_VIVO.md     # Casos, comandos y demostración.
+tests/
+    test_core.py         # Pruebas unitarias de las cinco funciones.
+.github/workflows/
+    ci.yml               # Integración continua con GitHub Actions.
 ```
 
 ## Uso
@@ -49,6 +53,14 @@ El segundo comando debe imprimir `9`.
 Los tipos incompatibles, incluidos `True` y `False`, generan `TypeError`.
 Las excepciones se dejan disponibles para verificarlas con `assertRaises` en los tests.
 
+## Pruebas
+
+Ejecuta la suite desde la raíz del repositorio:
+
+```powershell
+python -m unittest discover -s tests -p "test_*.py" -v
+```
+
 ## Organización de ramas
 
 - `dev`: desarrollo de la librería y documentación.
@@ -56,7 +68,11 @@ Las excepciones se dejan disponibles para verificarlas con `assertRaises` en los
 - `main`: versión estable, destino de los Pull Requests de `qa`.
 
 El proceso de integración sigue el recorrido `dev` → `qa` → `main`.
-La validación del PR requiere una ejecución de GitHub Actions y una regla de
-protección de `main` que impida el merge mientras las pruebas fallen.
+El workflow ejecuta las pruebas en pushes a `qa` y `main`, y en cada PR hacia
+`main`. Usa Python 3.12, permisos de lectura y el job `unit-tests`; una suite
+sin pruebas produce un fallo.
+
+Para impedir merges con pruebas fallidas, la protección de `main` requiere
+configuración en GitHub: PR obligatorio y check `unit-tests` obligatorio.
 
 Consulta la [guía de prueba en vivo](docs/PRUEBA_EN_VIVO.md).
