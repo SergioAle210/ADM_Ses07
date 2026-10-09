@@ -11,6 +11,8 @@ basic_math/
     core.py              # Implementación y validaciones.
 docs/
     PRUEBA_EN_VIVO.md     # Casos, comandos y demostración.
+images/
+    *.png                # Capturas de la validación del Pull Request.
 tests/
     test_core.py         # Pruebas unitarias de las cinco funciones.
 .github/workflows/
@@ -76,3 +78,9 @@ Para impedir merges con pruebas fallidas, la protección de `main` requiere
 configuración en GitHub: PR obligatorio y check `unit-tests` obligatorio.
 
 Consulta la [guía de prueba en vivo](docs/PRUEBA_EN_VIVO.md).
+
+## Evidencias
+
+Las [cuatro capturas de validación](docs/PRUEBA_EN_VIVO.md#5-evidencias) muestran
+el estado inicial aprobado, el commit que introduce el fallo, el merge bloqueado
+y las pruebas aprobadas tras la corrección.

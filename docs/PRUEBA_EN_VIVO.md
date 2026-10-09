@@ -60,10 +60,10 @@ git push origin qa
 Con el repositorio público, configura la protección desde GitHub:
 
 1. En **Actions**, comprueba que `CI - Matematica basica` termina con `unit-tests` aprobado.
-2. En **Settings → Branches → Add classic branch protection rule**, usa el patrón `main`.
-3. Activa **Require a pull request before merging**. Las aprobaciones de revisores son opcionales para esta demostración.
-4. Activa **Require status checks to pass before merging** y selecciona `unit-tests` de GitHub Actions. Activa **Require branches to be up to date before merging**.
-5. Activa **Do not allow bypassing the above settings** y deja desactivados **Allow force pushes** y **Allow deletions**. Guarda la regla.
+2. En **Settings → Rulesets**, crea un branch ruleset llamado `Proteccion main`, con estado **Active**, bypass vacío y el patrón de destino `main`.
+3. Activa **Require a pull request before merging**, con **Required approvals** en `0` para esta demostración.
+4. Activa **Require status checks to pass** y agrega `unit-tests` de GitHub Actions. Activa **Require branches to be up to date before merging**.
+5. Mantén **Restrict deletions** y **Block force pushes** activados, y **Restrict updates** desactivado. Guarda el ruleset.
 
 El workflow ejecuta las pruebas; la regla de protección es la que bloquea el
 merge cuando fallan. No se necesita trasladar estos archivos a `dev` para el
@@ -99,3 +99,36 @@ git push origin qa
 
 En el mismo PR, muestra las pruebas aprobadas y el merge habilitado. Realiza el
 merge desde GitHub después de verificar el resultado.
+
+El método **Merge pull request** conserva los commits individuales del fallo y
+la corrección. Puede mantenerse el mensaje predeterminado de GitHub, que
+identifica el número de PR y la rama de origen.
+
+## 5. Evidencias
+
+Las capturas corresponden al PR de `qa` hacia `main` y están guardadas en
+`images/`, en la raíz del repositorio.
+
+### 1. Estado inicial aprobado
+
+Las pruebas obligatorias están aprobadas y el merge está habilitado.
+
+![Pruebas iniciales aprobadas en el Pull Request](../images/01-pruebas-iniciales.png)
+
+### 2. Commit con el fallo intencional
+
+El commit `demo: provoca un fallo en square` aparece con las verificaciones fallidas.
+
+![Commit con el fallo intencional y las verificaciones fallidas](../images/02-commit-con-fallo.png)
+
+### 3. Merge bloqueado
+
+Los checks obligatorios fallan y el botón de merge está deshabilitado.
+
+![Pruebas obligatorias fallidas y merge bloqueado](../images/03-merge-bloqueado.png)
+
+### 4. Corrección aprobada
+
+El commit de corrección tiene los checks aprobados y el merge vuelve a estar habilitado.
+
+![Pruebas aprobadas tras la corrección y merge habilitado](../images/04-pruebas-corregidas.png)
