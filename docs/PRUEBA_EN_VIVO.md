@@ -132,3 +132,10 @@ Los checks obligatorios fallan y el botón de merge está deshabilitado.
 El commit de corrección tiene los checks aprobados y el merge vuelve a estar habilitado.
 
 ![Pruebas aprobadas tras la corrección y merge habilitado](../images/04-pruebas-corregidas.png)
+
+### 5. Pull Request finalizado
+
+El Pull Request aparece como **Merged** y cerrado después de confirmar el merge
+en `main`. Los dos checks obligatorios quedan aprobados.
+
+![Pull Request finalizado en main](../images/05-merge-finalizado.png)
