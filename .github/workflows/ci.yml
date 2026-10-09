@@ -1,0 +1,36 @@
+name: CI - Matematica basica
+
+on:
+  push:
+    branches: [qa, main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  unit-tests:
+    name: unit-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Configurar Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Verificar que existen pruebas
+        run: >-
+          python -c "import unittest;
+          suite = unittest.defaultTestLoader.discover('tests', pattern='test_*.py');
+          assert suite.countTestCases() > 0, 'No se encontraron pruebas'"
+
+      - name: Ejecutar pruebas unitarias
+        run: python -m unittest discover -s tests -p "test_*.py" -v
