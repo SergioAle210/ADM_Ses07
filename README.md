@@ -81,6 +81,6 @@ Consulta la [guía de prueba en vivo](docs/PRUEBA_EN_VIVO.md).
 
 ## Evidencias
 
-Las [cuatro capturas de validación](docs/PRUEBA_EN_VIVO.md#5-evidencias) muestran
+Las [cinco capturas de validación](docs/PRUEBA_EN_VIVO.md#5-evidencias) muestran
 el estado inicial aprobado, el commit que introduce el fallo, el merge bloqueado
-y las pruebas aprobadas tras la corrección.
+y las pruebas aprobadas tras la corrección y el merge finalizado.
