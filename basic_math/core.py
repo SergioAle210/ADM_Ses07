@@ -13,7 +13,7 @@ def square(n: int | float) -> int | float:
     """Devuelve n al cuadrado; los tipos incompatibles generan TypeError."""
     if isinstance(n, bool) or not isinstance(n, (int, float)):
         raise TypeError("n debe ser un entero o decimal; no se aceptan booleanos.")
-    return n * n
+    return n + n
 
 
 def factorial(n: int) -> int:
